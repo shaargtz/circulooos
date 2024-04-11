@@ -70,6 +70,8 @@ def generar_circulos():
 	primer_circulo = plt.Circle((0, 0), max_radio, color='black', lw=5, fill=False)
 	circulos.append(primer_circulo)
 
+	centros = [[0, 0]]
+
 	for i in range(num_circulos - 1):
 		nuevo_centro = [0, 0]
 		nuevo_radio = 0
@@ -86,6 +88,8 @@ def generar_circulos():
 			distancia_nuevo_centro = (nuevo_centro[0] ** 2 + nuevo_centro[1] ** 2) ** 0.5
 			if distancia_nuevo_centro <= max_radio:
 				break
+
+		centros.append(nuevo_centro)
 
 		# generar radio aleatorio que salga del circulo
 		while True:
@@ -111,9 +115,9 @@ def generar_circulos():
 			(nuevo_centro[0], nuevo_centro[1]), nuevo_radio, color='black', lw=5, fill=False)
 		circulos.append(nuevo_circulo)
 
-	dibujar_circulos(circulos)
+	dibujar_circulos(circulos, centros)
 
-def dibujar_circulos(circulos):
+def dibujar_circulos(circulos, centros):
 	matplotlib.rcParams['figure.figsize'] = [eje_x, eje_y]
 
 	global figura
@@ -126,6 +130,7 @@ def dibujar_circulos(circulos):
 	ejes.set_ylim((-1.0 * (eje_y / 2.0), (eje_y / 2.0)))
 
 	for i in range(num_circulos):
+		ejes.plot(centros[i][0], centros[i][1], 'rx', mew=5, ms=30)
 		ejes.add_patch(circulos[i])
 
 	plt.axis('off')
@@ -142,6 +147,8 @@ def guardar_resultado():
 		figura.savefig(direccion_transparente, bbox_inches='tight', transparent=True)
 		direccion_fondo = values["-FOLDER-"] + '/' + values["-NOMBRE-"] + '_fondo.png'
 		figura.savefig(direccion_fondo, bbox_inches='tight', transparent=False)
+		direccion_svg = values["-FOLDER-"] + '/' + values["-NOMBRE-"] + '.svg'
+		figura.savefig(direccion_svg, bbox_inches='tight', transparent=True)
 
 def event_loop():
 	global values
