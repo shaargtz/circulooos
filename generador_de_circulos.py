@@ -4,6 +4,8 @@ import random
 import PySimpleGUI as sg
 import os
 
+matplotlib.use("svg")
+
 num_circulos = 0
 min_radio = 0.0
 max_radio = 0.0
