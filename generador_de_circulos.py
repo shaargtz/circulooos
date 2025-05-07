@@ -1,7 +1,7 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import random
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 import os
 
 matplotlib.use("svg")
